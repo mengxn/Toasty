@@ -7,7 +7,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.StyleSpan;
 import android.view.View;
-import android.widget.Toast;
 
 import es.dmoral.toasty.Toasty;
 
@@ -39,44 +38,67 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.button_error_toast).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.error(MainActivity.this, "This is an error toast.", Toast.LENGTH_SHORT, true).show();
+                Toasty.error(MainActivity.this)
+                        .message("this is an error toast")
+                        .build()
+                        .show();
             }
         });
         findViewById(R.id.button_success_toast).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.success(MainActivity.this, "Success!", Toast.LENGTH_SHORT, true).show();
+                Toasty.success(MainActivity.this)
+                        .message("Success !")
+                        .build()
+                        .show();
             }
         });
         findViewById(R.id.button_info_toast).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.info(MainActivity.this, "Here is some info for you.", Toast.LENGTH_SHORT, true).show();
+                Toasty.info(MainActivity.this)
+                        .message("Here is some info for you.")
+                        .build()
+                        .show();
             }
         });
         findViewById(R.id.button_warning_toast).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.warning(MainActivity.this, "Beware of the dog.", Toast.LENGTH_SHORT, true).show();
+                Toasty.warning(MainActivity.this)
+                        .message("Beware of the dog.")
+                        .build()
+                        .show();
             }
         });
         findViewById(R.id.button_normal_toast_wo_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.normal(MainActivity.this, "Normal toast w/o icon").show();
+                Toasty.normal(MainActivity.this)
+                        .message("Normal toast w/o icon")
+                        .build()
+                        .show();
             }
         });
         findViewById(R.id.button_normal_toast_w_icon).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Drawable icon = getResources().getDrawable(R.drawable.ic_pets_white_48dp);
-                Toasty.normal(MainActivity.this, "Normal toast w/ icon", icon).show();
+                Toasty.normal(MainActivity.this)
+                        .message("Normal toast w/ icon")
+                        .withIcon(true)
+                        .icon(icon)
+                        .build()
+                        .show();
             }
         });
         findViewById(R.id.button_info_toast_with_formatting).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.info(MainActivity.this, getFormattedMessage()).show();
+                Toasty.info(MainActivity.this)
+                        .message(getFormattedMessage())
+                        .build()
+                        .show();
             }
         });
     }
