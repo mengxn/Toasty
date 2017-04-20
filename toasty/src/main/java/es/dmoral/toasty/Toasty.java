@@ -7,7 +7,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.CheckResult;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,95 +45,60 @@ public class Toasty {
     private Toasty() {
     }
 
-    public static @CheckResult Toast normal(@NonNull Context context, @NonNull CharSequence message) {
-        return normal(context, message, Toast.LENGTH_SHORT, null, false);
+    public static Builder normal(Context context) {
+        return new Builder(context)
+                .withIcon(false)
+                .textColor(DEFAULT_TEXT_COLOR)
+                .shouldTint(false)
+                .duration(Toast.LENGTH_SHORT);
     }
 
-    public static @CheckResult Toast normal(@NonNull Context context, @NonNull CharSequence message, Drawable icon) {
-        return normal(context, message, Toast.LENGTH_SHORT, icon, true);
+    public static Builder warning(Context context) {
+        return new Builder(context)
+                .withIcon(true)
+                .icon(ToastyUtils.getDrawable(context, R.drawable.ic_error_outline_white_48dp))
+                .textColor(DEFAULT_TEXT_COLOR)
+                .shouldTint(true)
+                .tintColor(WARNING_COLOR)
+                .duration(Toast.LENGTH_SHORT);
     }
 
-    public static @CheckResult Toast normal(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        return normal(context, message, duration, null, false);
+    public static Builder info(Context context) {
+        Builder builder = new Builder(context);
+        return builder
+                .withIcon(true)
+                .icon(ToastyUtils.getDrawable(context, R.drawable.ic_info_outline_white_48dp))
+                .textColor(DEFAULT_TEXT_COLOR)
+                .shouldTint(true)
+                .tintColor(INFO_COLOR)
+                .duration(Toast.LENGTH_SHORT);
     }
 
-    public static @CheckResult Toast normal(@NonNull Context context, @NonNull CharSequence message, int duration,
-                               Drawable icon) {
-        return normal(context, message, duration, icon, true);
+    public static Builder success(Context context) {
+        Builder builder = new Builder(context);
+        return builder
+                .withIcon(true)
+                .icon(ToastyUtils.getDrawable(context, R.drawable.ic_check_white_48dp))
+                .textColor(DEFAULT_TEXT_COLOR)
+                .shouldTint(true)
+                .tintColor(SUCCESS_COLOR)
+                .duration(Toast.LENGTH_SHORT);
     }
 
-    public static @CheckResult Toast normal(@NonNull Context context, @NonNull CharSequence message, int duration,
-                               Drawable icon, boolean withIcon) {
-        return custom(context, message, icon, DEFAULT_TEXT_COLOR, duration, withIcon);
-    }
-
-    public static @CheckResult Toast warning(@NonNull Context context, @NonNull CharSequence message) {
-        return warning(context, message, Toast.LENGTH_SHORT, true);
-    }
-
-    public static @CheckResult Toast warning(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        return warning(context, message, duration, true);
-    }
-
-    public static @CheckResult Toast warning(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastyUtils.getDrawable(context, R.drawable.ic_error_outline_white_48dp),
-                DEFAULT_TEXT_COLOR, WARNING_COLOR, duration, withIcon, true);
-    }
-
-    public static @CheckResult Toast info(@NonNull Context context, @NonNull CharSequence message) {
-        return info(context, message, Toast.LENGTH_SHORT, true);
-    }
-
-    public static @CheckResult Toast info(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        return info(context, message, duration, true);
-    }
-
-    public static @CheckResult Toast info(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastyUtils.getDrawable(context, R.drawable.ic_info_outline_white_48dp),
-                DEFAULT_TEXT_COLOR, INFO_COLOR, duration, withIcon, true);
-    }
-
-    public static @CheckResult Toast success(@NonNull Context context, @NonNull CharSequence message) {
-        return success(context, message, Toast.LENGTH_SHORT, true);
-    }
-
-    public static @CheckResult Toast success(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        return success(context, message, duration, true);
-    }
-
-    public static @CheckResult Toast success(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastyUtils.getDrawable(context, R.drawable.ic_check_white_48dp),
-                DEFAULT_TEXT_COLOR, SUCCESS_COLOR, duration, withIcon, true);
-    }
-
-    public static @CheckResult Toast error(@NonNull Context context, @NonNull CharSequence message) {
-        return error(context, message, Toast.LENGTH_SHORT, true);
-    }
-
-    public static @CheckResult Toast error(@NonNull Context context, @NonNull CharSequence message, int duration) {
-        return error(context, message, duration, true);
-    }
-
-    public static @CheckResult Toast error(@NonNull Context context, @NonNull CharSequence message, int duration, boolean withIcon) {
-        return custom(context, message, ToastyUtils.getDrawable(context, R.drawable.ic_clear_white_48dp),
-                DEFAULT_TEXT_COLOR, ERROR_COLOR, duration, withIcon, true);
+    public static Builder error(Context context) {
+        Builder builder = new Builder(context);
+        return builder
+                .withIcon(true)
+                .icon(ToastyUtils.getDrawable(context, R.drawable.ic_clear_white_48dp))
+                .textColor(DEFAULT_TEXT_COLOR)
+                .shouldTint(true)
+                .tintColor(ERROR_COLOR)
+                .duration(Toast.LENGTH_SHORT);
     }
 
     public static @CheckResult Toast custom(@NonNull Context context, @NonNull CharSequence message, Drawable icon,
-                               @ColorInt int textColor, int duration, boolean withIcon) {
-        return custom(context, message, icon, textColor, -1, duration, withIcon, false);
-    }
-
-    public static @CheckResult Toast custom(@NonNull Context context, @NonNull CharSequence message, @DrawableRes int iconRes,
-                               @ColorInt int textColor, @ColorInt int tintColor, int duration,
-                               boolean withIcon, boolean shouldTint) {
-        return custom(context, message, ToastyUtils.getDrawable(context, iconRes), textColor,
-                tintColor, duration, withIcon, shouldTint);
-    }
-
-    public static @CheckResult Toast custom(@NonNull Context context, @NonNull CharSequence message, Drawable icon,
-                               @ColorInt int textColor, @ColorInt int tintColor, int duration,
-                               boolean withIcon, boolean shouldTint) {
+                 @ColorInt int textColor, @ColorInt int tintColor, int duration,
+                 boolean withIcon, boolean shouldTint) {
         final Toast currentToast = new Toast(context);
         final View toastLayout = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
                 .inflate(R.layout.toast_layout, null);
@@ -163,4 +127,67 @@ public class Toasty {
         currentToast.setDuration(duration);
         return currentToast;
     }
+
+    public static class Builder {
+
+        private Context mContext;
+        private CharSequence mMessage;
+        private int mDuration;
+        private Drawable mIcon;
+        private int mTextColor;
+        private int mTintColor;
+        private boolean mWithIcon;
+        private boolean mShouldTint;
+
+
+        public Builder(Context context) {
+            mContext = context;
+        }
+
+        public Builder message(CharSequence message) {
+            mMessage = message;
+            return this;
+        }
+
+        public Builder duration(int duration) {
+            mDuration = duration;
+            return this;
+        }
+
+        public Builder icon(Drawable icon) {
+            mIcon = icon;
+            mWithIcon = true;
+            return this;
+        }
+
+        public Builder withIcon(boolean withIcon) {
+            mWithIcon = withIcon;
+            return this;
+        }
+
+        public Builder textColor(int color) {
+            mTextColor = color;
+            return this;
+        }
+
+        public Builder tintColor(int color) {
+            mTintColor = color;
+            mShouldTint = true;
+            return this;
+        }
+
+        public Builder shouldTint(boolean shouldTint) {
+            mShouldTint = shouldTint;
+            return this;
+        }
+
+        public Toast build() {
+            return custom(mContext, mMessage, mIcon, mTextColor, mTintColor, mDuration, mWithIcon, mShouldTint);
+        }
+
+        public void show() {
+            custom(mContext, mMessage, mIcon, mTextColor, mTintColor, mDuration, mWithIcon, mShouldTint).show();
+        }
+    }
+
 }
