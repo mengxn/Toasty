@@ -7,6 +7,8 @@
 
 The usual Toast, but with steroids. **(Screenshots at the end of the file.)**
 
+## Prerequisites
+
 Add this in your root `build.gradle` file (**not** your module `build.gradle` file):
 
 ```gradle
@@ -18,20 +20,41 @@ allprojects {
 }
 ```
 
-Dependency
---
+## Dependency
 
 Add this to your module's `build.gradle` file (make sure the version matches the JitPack badge above):
 
 ```gradle
 dependencies {
 	...
-	compile 'com.github.GrenderG:Toasty:1.1.4'
+	compile 'com.github.GrenderG:Toasty:1.2.5'
 }
 ```
 
-Usage
---
+## Configuration
+
+This step is optional, but if you want you can configure some Toasty parameters. Place this anywhere in your app:
+
+```java
+Toasty.Config.getInstance()
+    .setErrorColor(@ColorInt int errorColor) // optional
+    .setInfoColor(@ColorInt int infoColor) // optional
+    .setSuccessColor(@ColorInt int successColor) // optional
+    .setWarningColor(@ColorInt int warningColor) // optional
+    .setTextColor(@ColorInt int textColor) // optional
+    .tintIcon(boolean tintIcon) // optional (apply textColor also to the icon)
+    .setToastTypeface(@NonNull Typeface typeface) // optional
+    .setTextSize(int sizeInSp) // optional
+    .apply(); // required
+```
+
+You can reset the configuration by using `reset()` method:
+
+```java
+Toasty.Config.reset();
+```
+
+## Usage
 
 Each method always returns a `Toast` object, so you can customize the Toast much more. **DON'T FORGET THE `show()` METHOD!**
 
@@ -68,12 +91,13 @@ Toasty.normal(yourContext, "Normal toast w/ icon", yourIconDrawable).show();
 
 You can also create your custom Toasts with the `custom()` method:
 ``` java
-Toasty.custom(yourContext, "I'm a custom Toast", yourIconDrawable, textColor, tintColor, duration, withIcon, true).show();
+Toasty.custom(yourContext, "I'm a custom Toast", yourIconDrawable, tintColor, duration, withIcon, 
+shouldTint).show();
 ```
 ### Extra
-[You can pass formatted text to Toasty!](https://github.com/GrenderG/Toasty/blob/master/app/src/main/java/es/dmoral/toastysample/MainActivity.java#L76-L93)
+[You can pass formatted text to Toasty!](https://github.com/GrenderG/Toasty/blob/master/app/src/main/java/es/dmoral/toastysample/MainActivity.java#L98-L107)
 
-There are variants of each method, feel free to explore this library.
+**There are variants of each method, feel free to explore this library.**
 
 Apps using Toasty
 --
@@ -82,26 +106,29 @@ Want to be here? Open an `issue` or make a `pull request`.
 
 <table>
 	<tr>
-		<td><img src="https://lh3.googleusercontent.com/vmch41lYF_TKb1MKgtYrSgz2rKQ4T1EnGRCGpWSMqLRSzi_pgNWoZpw9WJE8UV4t614=w300-rw" width="64"/></td>
+		<td><img src="https://lh3.googleusercontent.com/vmch41lYF_TKb1MKgtYrSgz2rKQ4T1EnGRCGpWSMqLRSzi_pgNWoZpw9WJE8UV4t614" width="64"/></td>
 		<td><a href="https://play.google.com/store/apps/details?id=com.trivisionzero.chromophoto">ChromoPhoto - Colorize B&W</a></td>
 	</tr>
 	<tr>
-		<td><img src="https://lh3.googleusercontent.com/2EYJPs-qBlKJ3L6cy7idQpzKfZkTzA2G4UQfbs-96VGMftQ-7aV4Dvj77ejzZlAAVx_C=w300-rw" width="64"/></td>
+		<td><img src="https://lh3.googleusercontent.com/2EYJPs-qBlKJ3L6cy7idQpzKfZkTzA2G4UQfbs-96VGMftQ-7aV4Dvj77ejzZlAAVx_C" width="64"/></td>
 		<td><a href="https://play.google.com/store/apps/details?id=com.serg.chuprin.tageditor">AutoTagger - редактор тегов.</a></td>
 	</tr>
 	<tr>
 		<td><img src="https://archive.org/download/ic_launcher_colorhub/ic_launcher_colorhub.png" width="64"/></td>
 		<td><a href="https://play.google.com/store/apps/details?id=cheetatech.com.colorhub">ColorHub - Color Palette</a></td>
 	</tr>
+	<tr>
+		<td><img src="https://lh3.googleusercontent.com/Z9tz0izoW0CuBS59w9hbxbn3a7cSSwZUeGr1o9TpapngTKb4MKaGunZP-B306CxBAI8" width="64"/></td>
+		<td><a href="https://play.google.com/store/apps/details?id=com.fa.touch.free">Touch for Facebook</a></td>
+	</tr>
+	<tr>
+		<td><img src="https://lh3.googleusercontent.com/rXB22UBHujsK2uYpN-kAkVFBjTcnAp6ltSZYf9-LdYvRkM-kF-xtwPwR8kEInhludA" width="64"/></td>
+		<td><a href="https://play.google.com/store/apps/details?id=com.fa.daily.free">Daily – News flipped around</a></td>
+	</tr>
 </table>
 
-Screenshots
---
+## Screenshots
 
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_1.png" width="250">
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_2.png" width="250">
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_3.png" width="250">
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_4.png" width="250">
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_5.png" width="250">
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_6.png" width="250">
-<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/scr_7.png" width="250">
+**Please click the image below to enlarge.**
+
+<img src="https://raw.githubusercontent.com/GrenderG/Toasty/master/art/collage.png">
